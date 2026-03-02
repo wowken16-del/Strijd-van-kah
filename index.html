@@ -1,4 +1,4 @@
-OCTYPE html>
+<!DOCTYPE html>
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
@@ -15,9 +15,10 @@ body {
   font-family: 'Cinzel', serif;
   text-align: center;
   overflow: hidden;
+  cursor: pointer; /* zodat gebruikers weten dat ze kunnen klikken */
 }
 
-/* Subtiele waterbeweging */
+/* Subtiele water-energie animatie */
 body::before {
   content: "";
   position: absolute;
@@ -37,6 +38,7 @@ h1 {
   margin-top: 140px;
   font-size: 3.8rem;
   letter-spacing: 4px;
+  text-transform: uppercase;
   color: #b8f1f2;
   text-shadow: 0 0 8px rgba(0,200,255,0.3);
 }
@@ -80,15 +82,24 @@ h1 {
 <h1>STRIJD VAN KAH</h1>
 <div id="countdown"></div>
 
-<audio id="bgMusic" autoplay loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/08/04/audio_2f50e6c6d8.mp3?filename=epic-sci-fi-ambient-112191.mp3" type="audio/mpeg">
+<!-- Muziek -->
+<audio id="bgMusic" loop>
+  <source src="battle-music.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
 </audio>
 
-<script>
-const music = document.getElementById("bgMusic");
-music.volume = 0.25;
+<p style="font-family:sans-serif;font-size:14px;color:#aaa; margin-top:20px;">
+Klik ergens op de pagina om muziek te starten
+</p>
 
-// Morgen 11:00
+<script>
+// Muziek starten na klik
+const music = document.getElementById("bgMusic");
+document.body.addEventListener("click", () => {
+  music.play();
+});
+
+// Countdown tot morgen 11:00
 const nowDate = new Date();
 const target = new Date();
 target.setDate(nowDate.getDate() + 1);
@@ -108,12 +119,13 @@ const x = setInterval(function() {
 
   if (distance < 0) {
     clearInterval(x);
-    document.getElementById("countdown").innerHTML = "DE OCEAAN ONTWAAKT";
-    document.getElementById("countdown").classList.add("end");
+    const cd = document.getElementById("countdown");
+    cd.innerHTML = "DE OCEAAN ONTWAAKT";
+    cd.classList.add("end");
   }
 }, 1000);
 
-// Energie deeltjes
+// Energie deeltjes animatie
 function createParticle() {
   const particle = document.createElement("div");
   particle.classList.add("particle");
