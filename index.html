@@ -3,143 +3,133 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kah Tegen de Augurken</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;900&display=swap" rel="stylesheet">
+<title>AlienX Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&display=swap" rel="stylesheet">
 
 <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-  margin: 0;
-  background: radial-gradient(circle at center, #00151a 0%, #000814 70%, #000 100%);
-  color: #9fdfe0;
-  font-family: 'Cinzel', serif;
-  text-align: center;
-  overflow: hidden;
-  cursor: pointer; /* zodat gebruikers weten dat ze kunnen klikken */
+    background: black;
+    font-family: 'Cinzel', serif;
+    color: white;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Subtiele water-energie animatie */
-body::before {
-  content: "";
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(0,180,200,0.04) 10%, transparent 50%);
-  animation: waterMove 25s linear infinite;
+/* AlienX achtergrond */
+.alien-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.95)),
+        url('alienx.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.25;
+    filter: brightness(0.6) contrast(1.3);
+    z-index: -1;
 }
 
-@keyframes waterMove {
-  from { transform: translate(-5%, -5%) rotate(0deg); }
-  to { transform: translate(-5%, -5%) rotate(360deg); }
+/* Naam bovenaan */
+.name {
+    font-size: 5rem;
+    color: #7fffd4;
+    text-shadow: 0 0 10px rgba(0,255,255,0.6), 0 0 40px rgba(0,255,255,0.4);
+    margin-bottom: 50px;
+    animation: pulse 3s infinite alternate;
 }
 
-/* Titel */
-h1 {
-  margin-top: 140px;
-  font-size: 3.8rem;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: #b8f1f2;
-  text-shadow: 0 0 8px rgba(0,200,255,0.3);
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
 }
 
-/* Countdown */
-#countdown {
-  font-size: 3.2rem;
-  margin-top: 70px;
-  color: #a0e6e8;
-  text-shadow: 0 0 6px rgba(0,200,255,0.25);
+/* Portfolio container */
+.portfolio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
-/* Subtiele energie deeltjes */
+/* Afbeelding + hover */
+.portfolio img {
+    width: 300px;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(0,255,255,0.2);
+}
+
+.portfolio img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 50px rgba(0,255,255,0.5);
+}
+
+/* Tekst onder de afbeelding */
+.portfolio .info {
+    text-align: center;
+    font-size: 1.2rem;
+    background: rgba(0,0,0,0.6);
+    padding: 10px 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 20px rgba(0,255,255,0.2);
+}
+
+/* Subtle particles */
 .particle {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: #66f7ff;
-  border-radius: 50%;
-  opacity: 0.6;
-  animation: floatUp linear forwards;
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: cyan;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: float linear infinite;
+    z-index: -1;
 }
 
-@keyframes floatUp {
-  to {
-    transform: translateY(-100vh);
-    opacity: 0;
-  }
-}
-
-.end {
-  font-size: 3.8rem;
-  letter-spacing: 3px;
-  color: #8ffcff;
+@keyframes float {
+    from { transform: translateY(100vh); opacity: 0; }
+    to { transform: translateY(-10vh); opacity: 1; }
 }
 
 </style>
 </head>
 <body>
 
-<h1>STRIJD VAN KAH</h1>
-<div id="countdown"></div>
+<div class="alien-bg"></div>
 
-<!-- Muziek -->
-<audio id="bgMusic" loop>
-  <source src="battle-music.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
+<div class="name">AlienX</div>
 
-<p style="font-family:sans-serif;font-size:14px;color:#aaa; margin-top:20px;">
-Kahlania Klik muziek lania shelina
-</p>
+<div class="portfolio">
+    <img src="alienx.jpg" alt="AlienX Portfolio Image">
+    <div class="info">
+        UI/UX & Roblox/Game Developer<br>
+        3+ Weeks of experienc, 20k+ visits.
+    </div>
+</div>
 
 <script>
-// Muziek starten na klik
-const music = document.getElementById("bgMusic");
-document.body.addEventListener("click", () => {
-  music.play();
-});
-
-// Countdown tot morgen 11:00
-const nowDate = new Date();
-const target = new Date();
-target.setDate(nowDate.getDate() + 1);
-target.setHours(11, 0, 0, 0);
-const countdownDate = target.getTime();
-
-const x = setInterval(function() {
-  const now = new Date().getTime();
-  const distance = countdownDate - now;
-
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const secs = Math.floor((distance % (1000 * 60)) / 1000);
-
-  document.getElementById("countdown").innerHTML =
-    hours + " U  " + mins + " M  " + secs + " S ";
-
-  if (distance < 0) {
-    clearInterval(x);
-    const cd = document.getElementById("countdown");
-    cd.innerHTML = "SLOPHE NU";
-    cd.classList.add("end");
-  }
-}, 1000);
-
-// Energie deeltjes animatie
-function createParticle() {
-  const particle = document.createElement("div");
-  particle.classList.add("particle");
-  particle.style.left = Math.random() * window.innerWidth + "px";
-  particle.style.bottom = "0px";
-  particle.style.animationDuration = Math.random() * 5 + 3 + "s";
-  document.body.appendChild(particle);
-
-  setTimeout(() => {
-    particle.remove();
-  }, 8000);
+/* Particles effect */
+for (let i = 0; i < 80; i++) {
+    const p = document.createElement("div");
+    p.classList.add("particle");
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.animationDuration = (5 + Math.random() * 10) + "s";
+    p.style.animationDelay = Math.random() * 5 + "s";
+    document.body.appendChild(p);
 }
-
-setInterval(createParticle, 120);
 </script>
 
 </body>
