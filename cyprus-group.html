@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Groep Cyprus — Websites voor Bedrijven & Restaurants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #d0cfc8;
+    --bg: #f7f6f2;
+    --white: #ffffff;
+    --accent: #1a1a1a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 3rem;
+    background: rgba(247,246,242,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--line);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .logo span { font-style: italic; }
+  nav ul { list-style: none; display: flex; gap: 2.5rem; }
+  nav ul a {
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  nav ul a:hover { color: var(--ink); }
+  .nav-cta {
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border: 0.5px solid var(--ink);
+    padding: 0.55rem 1.4rem;
+    border-radius: 99px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-cta:hover { background: var(--ink); color: var(--white); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--white);
+  }
+  .hero-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 3rem;
+    max-width: 820px;
+  }
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.2rem, 7vw, 6.5rem);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 1.8rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 440px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+  .btn-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--ink);
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.88rem;
+    letter-spacing: 0.04em;
+    padding: 1rem 2rem;
+    border-radius: 99px;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .btn-pill:hover { transform: translateX(4px); opacity: 0.85; }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: transparent;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.88rem;
+    letter-spacing: 0.04em;
+    padding: 1rem 2rem;
+    border-radius: 99px;
+    border: 0.5px solid var(--ink);
+    transition: background 0.2s, color 0.2s;
+    margin-left: 0.8rem;
+  }
+  .btn-ghost:hover { background: var(--ink); color: var(--white); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem; left: 3rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .hero-scroll::before {
+    content: '';
+    display: block;
+    width: 32px; height: 0.5px;
+    background: var(--muted);
+  }
+
+  /* STATS BAND */
+  .stats {
+    background: var(--ink);
+    color: var(--white);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 0.5px solid #333;
+  }
+  .stat-item {
+    padding: 2.8rem 3rem;
+    border-right: 0.5px solid #333;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.3rem;
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+  }
+
+  /* SERVICES */
+  .section {
+    padding: 7rem 3rem;
+  }
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-label::before {
+    content: '';
+    width: 24px; height: 0.5px;
+    background: var(--muted);
+    flex-shrink: 0;
+  }
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    max-width: 600px;
+    margin-bottom: 4rem;
+  }
+  .section-heading em { font-style: italic; font-weight: 400; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 0.5px solid var(--line);
+    border-left: 0.5px solid var(--line);
+  }
+  .service-card {
+    border-right: 0.5px solid var(--line);
+    border-bottom: 0.5px solid var(--line);
+    padding: 2.5rem;
+    transition: background 0.25s;
+    cursor: default;
+  }
+  .service-card:hover { background: var(--ink); color: var(--white); }
+  .service-card:hover .service-icon { color: #888; }
+  .service-card:hover .service-sub { color: #aaa; }
+  .service-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--muted);
+    transition: color 0.25s;
+  }
+  .service-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.02em;
+  }
+  .service-sub {
+    font-size: 0.88rem;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--muted);
+    transition: color 0.25s;
+  }
+
+  /* PROCESS */
+  .process { background: var(--white); }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+    margin-top: 1rem;
+  }
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--line);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .step-title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+  }
+  .step-text {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* REVIEWS */
+  .reviews { background: var(--bg); }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .review-card {
+    background: var(--white);
+    border: 0.5px solid var(--line);
+    border-radius: 4px;
+    padding: 2rem 2rem 1.8rem;
+  }
+  .stars {
+    color: #1a1a1a;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.2rem;
+  }
+  .review-text {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--ink);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+  .review-author {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .review-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--white);
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .review-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  .review-role {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.1rem;
+  }
+
+  /* GROWTH SECTION */
+  .growth-section {
+    background: var(--ink);
+    color: var(--white);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    overflow: hidden;
+  }
+  .growth-left {
+    padding: 6rem 4rem 6rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .growth-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #777;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .growth-label::before {
+    content: '';
+    width: 24px; height: 0.5px;
+    background: #555;
+  }
+  .growth-h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .growth-h2 em { font-style: italic; font-weight: 400; }
+  .growth-body {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: #aaa;
+    line-height: 1.75;
+    max-width: 400px;
+    margin-bottom: 2.5rem;
+  }
+  .growth-right {
+    position: relative;
+    overflow: hidden;
+    border-left: 0.5px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+  }
+  .growth-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+  }
+  .metric-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .metric-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #666;
+    width: 120px;
+    flex-shrink: 0;
+  }
+  .metric-bar-wrap {
+    flex: 1;
+    height: 2px;
+    background: #2a2a2a;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .metric-bar {
+    height: 100%;
+    background: var(--white);
+    border-radius: 2px;
+    animation: barGrow 1.5s ease forwards;
+    transform-origin: left;
+  }
+  @keyframes barGrow {
+    from { width: 0; }
+  }
+  .metric-val {
+    font-size: 0.85rem;
+    font-weight: 500;
+    min-width: 42px;
+    text-align: right;
+  }
+
+  /* CTA FOOTER */
+  .cta-section {
+    background: var(--white);
+    text-align: center;
+    padding: 8rem 3rem;
+    border-top: 0.5px solid var(--line);
+  }
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.05;
+  }
+  .cta-section h2 em { font-style: italic; font-weight: 400; }
+  .cta-section p {
+    font-size: 1rem;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 420px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: #777;
+    padding: 2.5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 0.5px solid #2a2a2a;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+  }
+  footer .logo { color: var(--white); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-content > * {
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-eyebrow { animation-delay: 0.1s; }
+  .hero h1 { animation-delay: 0.25s; }
+  .hero-sub { animation-delay: 0.4s; }
+  .hero-btns { animation-delay: 0.55s; }
+
+  .hero-btns { display: flex; flex-wrap: wrap; align-items: center; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Groep <span>Cyprus</span></a>
+  <ul>
+    <li><a href="#diensten">Diensten</a></li>
+    <li><a href="#werkwijze">Werkwijze</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Gratis offerte</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="hero-svg" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <g opacity="0.22" fill="none" stroke="#1a1a1a" stroke-width="0.8">
+      <!-- Flowing path lines inspired by screenshot -->
+      <path d="M-100,700 Q300,400 600,600 T1200,300 T1800,200"/>
+      <path d="M-100,720 Q300,420 600,620 T1200,320 T1800,220"/>
+      <path d="M-100,740 Q300,440 600,640 T1200,340 T1800,240"/>
+      <path d="M-100,760 Q300,460 600,660 T1200,360 T1800,260"/>
+      <path d="M-100,780 Q300,480 600,680 T1200,380 T1800,280"/>
+      <path d="M-100,800 Q300,500 600,700 T1200,400 T1800,300"/>
+      <path d="M-100,820 Q300,520 600,720 T1200,420 T1800,320"/>
+      <path d="M-100,840 Q300,540 600,740 T1200,440 T1800,340"/>
+      <path d="M-100,860 Q300,560 600,760 T1200,460 T1800,360"/>
+      <path d="M-100,880 Q300,580 600,780 T1200,480 T1800,380"/>
+      <path d="M-100,900 Q300,600 600,800 T1200,500 T1800,400"/>
+      <path d="M-100,920 Q300,620 600,820 T1200,520 T1800,420"/>
+      <path d="M-100,940 Q300,640 600,840 T1200,540 T1800,440"/>
+      <path d="M-100,960 Q300,660 600,860 T1200,560 T1800,460"/>
+      <path d="M-100,980 Q300,680 600,880 T1200,580 T1800,480"/>
+      <path d="M-100,1000 Q300,700 600,900 T1200,600 T1800,500"/>
+      <path d="M-100,1020 Q300,720 600,920 T1200,620 T1800,520"/>
+      <path d="M-100,1040 Q300,740 600,940 T1200,640 T1800,540"/>
+      <path d="M-100,1060 Q300,760 600,960 T1200,660 T1800,560"/>
+      <path d="M-100,1080 Q300,780 600,980 T1200,680 T1800,580"/>
+      <path d="M-100,1100 Q300,800 600,1000 T1200,700 T1800,600"/>
+      <path d="M-100,1120 Q300,820 600,1020 T1200,720 T1800,620"/>
+      <path d="M-100,1140 Q300,840 600,1040 T1200,740 T1800,640"/>
+      <path d="M-100,1160 Q300,860 600,1060 T1200,760 T1800,660"/>
+      <path d="M-100,1180 Q300,880 600,1080 T1200,780 T1800,680"/>
+      <path d="M-100,1200 Q300,900 600,1100 T1200,800 T1800,700"/>
+    </g>
+  </svg>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Webdesign bureau — Nederland</p>
+    <h1>Websites die<br><em>klanten</em><br>aantrekken.</h1>
+    <p class="hero-sub">Groep Cyprus bouwt professionele websites voor bedrijven en restaurants. Wij zorgen dat jouw zaak online gevonden wordt en meer klanten binnenhaalt.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-pill">Gratis offerte aanvragen &rarr;</a>
+      <a href="#reviews" class="btn-ghost">Bekijk resultaten</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll naar beneden</div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item">
+    <div class="stat-num">48+</div>
+    <div class="stat-label">Tevreden klanten</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">3×</div>
+    <div class="stat-label">Meer online bezoekers gemiddeld</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">14</div>
+    <div class="stat-label">Dagen tot live website</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="diensten">
+  <div class="section-label">Wat wij doen</div>
+  <h2 class="section-heading">Alles wat jouw bedrijf <em>online nodig heeft</em></h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">✦</div>
+      <div class="service-title">Website op maat</div>
+      <p class="service-sub">Een strakke, snelle website die perfect past bij jouw merk en doelgroep. Geen templates, alles uniek ontworpen.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">◎</div>
+      <div class="service-title">Restaurant pagina's</div>
+      <p class="service-sub">Online menu, reserveringssysteem en foto-galerie. Laat gasten al verlekkerd raken voor ze de deur binnenstappen.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">▲</div>
+      <div class="service-title">Google vindbaarheid</div>
+      <p class="service-sub">Lokale SEO zodat jouw zaak bovenaan staat als mensen in jouw stad zoeken naar wat jij aanbiedt.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">◈</div>
+      <div class="service-title">Webshop</div>
+      <p class="service-sub">Verkoop producten of diensten online, 24/7. Wij koppelen betaalmethoden en zorgen voor een vlekkeloze checkout.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⟡</div>
+      <div class="service-title">Onderhoud & hosting</div>
+      <p class="service-sub">Wij houden jouw website up-to-date, veilig en snel. Jij hoeft er niet naar om te kijken.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">◻</div>
+      <div class="service-title">Branding & logo</div>
+      <p class="service-sub">Van logo tot huisstijl — wij bouwen een herkenbaar visueel identiteit dat vertrouwen uitstraalt.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section process" id="werkwijze">
+  <div class="section-label">Hoe het werkt</div>
+  <h2 class="section-heading">Van eerste gesprek tot <em>live website</em></h2>
+  <div class="process-steps">
+    <div>
+      <div class="step-num">01</div>
+      <div class="step-title">Kennismaken</div>
+      <p class="step-text">We bespreken jouw wensen, doelgroep en wat jou onderscheidt van de concurrentie.</p>
+    </div>
+    <div>
+      <div class="step-num">02</div>
+      <div class="step-title">Ontwerp</div>
+      <p class="step-text">Wij maken een uniek ontwerp op basis van jouw merk. Jij geeft feedback, wij verfijnen.</p>
+    </div>
+    <div>
+      <div class="step-num">03</div>
+      <div class="step-title">Bouwen</div>
+      <p class="step-text">De website wordt gebouwd: snel, mobielvriendelijk en klaar voor Google.</p>
+    </div>
+    <div>
+      <div class="step-num">04</div>
+      <div class="step-title">Live &amp; groei</div>
+      <p class="step-text">Na jouw goedkeuring gaat de website live. Wij monitoren de resultaten en blijven ondersteunen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GROWTH -->
+<div class="growth-section">
+  <div class="growth-left">
+    <div class="growth-label">Resultaten</div>
+    <h2 class="growth-h2">Meer klanten,<br><em>meetbaar resultaat</em></h2>
+    <p class="growth-body">Na de lancering van een Cyprus-website zien onze klanten gemiddeld een flinke stijging in online bezoeken, reserveringen en directe aanvragen. Geen beloftes — gewoon cijfers.</p>
+    <a href="#contact" class="btn-pill" style="background:#fff; color:#1a1a1a; align-self:flex-start;">Start jouw groei &rarr;</a>
+  </div>
+  <div class="growth-right">
+    <div class="growth-metrics">
+      <div class="metric-row">
+        <div class="metric-label">Websitebezoek</div>
+        <div class="metric-bar-wrap"><div class="metric-bar" style="width: 87%;"></div></div>
+        <div class="metric-val">+87%</div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-label">Online reserv.</div>
+        <div class="metric-bar-wrap"><div class="metric-bar" style="width: 73%;"></div></div>
+        <div class="metric-val">+73%</div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-label">Aanvragen</div>
+        <div class="metric-bar-wrap"><div class="metric-bar" style="width: 91%;"></div></div>
+        <div class="metric-val">+91%</div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-label">Google ranking</div>
+        <div class="metric-bar-wrap"><div class="metric-bar" style="width: 65%;"></div></div>
+        <div class="metric-val">Top 3</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<section class="section reviews" id="reviews">
+  <div class="section-label">Wat klanten zeggen</div>
+  <h2 class="section-heading">Reviews van <em>tevreden ondernemers</em></h2>
+  <div class="reviews-grid">
+
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Sinds de nieuwe website heeft ons restaurant elke weekend volgeboekte avonden. De online reserveringen zijn meer dan verdubbeld. Echt geweldig werk van het Cyprus-team."</p>
+      <div class="review-author">
+        <div class="review-avatar">MV</div>
+        <div>
+          <div class="review-name">Marco Visser</div>
+          <div class="review-role">Eigenaar, Ristorante Bella — Rotterdam</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Wij werden op Google nauwelijks gevonden. Na twee maanden met Groep Cyprus staan we bovenaan voor al onze zoektermen. Het aantal telefoontjes is verdrievoudigd."</p>
+      <div class="review-author">
+        <div class="review-avatar">LB</div>
+        <div>
+          <div class="review-name">Laura Bos</div>
+          <div class="review-role">Directeur, Klus &amp; Bouw Bos — Utrecht</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Ik dacht dat een mooie website duur en ingewikkeld zou zijn. Cyprus heeft het hele traject superduidelijk uitgelegd en in 10 dagen hadden we een prachtige site online."</p>
+      <div class="review-author">
+        <div class="review-avatar">SK</div>
+        <div>
+          <div class="review-name">Sara Khalil</div>
+          <div class="review-role">Eigenaar, Beauty Studio Bloom — Amsterdam</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Onze webshop liep niet lekker en conversies waren laag. Cyprus heeft alles opnieuw opgezet en de omzet uit de webshop is in het eerste kwartaal al met 60% gestegen."</p>
+      <div class="review-author">
+        <div class="review-avatar">DH</div>
+        <div>
+          <div class="review-name">Daan Hendriks</div>
+          <div class="review-role">Ondernemer, FietsSupply.nl — Den Haag</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Als restaurant zonder grote marketingbudget dacht ik dat online groeien niet haalbaar was. Cyprus heeft dat tegendeel bewezen. Meer gasten, betere reviews en een vollere zaak."</p>
+      <div class="review-author">
+        <div class="review-avatar">AN</div>
+        <div>
+          <div class="review-name">Ama Nkosi</div>
+          <div class="review-role">Chef-eigenaar, Savana Kitchen — Eindhoven</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Snelle communicatie, mooi ontwerp en écht resultaat. We kregen de eerste week al nieuwe aanvragen via de contactpagina. Aanrader voor elke ondernemer die serieus wil groeien."</p>
+      <div class="review-author">
+        <div class="review-avatar">RJ</div>
+        <div>
+          <div class="review-name">Roos Jansen</div>
+          <div class="review-role">Founder, Studio Mindflow — Haarlem</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <h2>Klaar om <em>meer klanten</em> te bereiken?</h2>
+  <p>Vraag gratis een offerte aan. Geen verplichtingen, wél een eerlijk advies op maat voor jouw zaak.</p>
+  <a href="mailto:hallo@groepcyprus.nl" class="btn-pill">Neem contact op &rarr;</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="logo">Groep <span>Cyprus</span></a>
+  <span>hallo@groepcyprus.nl</span>
+  <span>&copy; 2026 Groep Cyprus. Alle rechten voorbehouden.</span>
+</footer>
+
+</body>
+</html>
